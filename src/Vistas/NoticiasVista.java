@@ -49,7 +49,7 @@ public class NoticiasVista extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(ListaTitulosNoticias);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("NOTICIAS RECIENTES");
 
         jLabel2.setText("Seleccionar para ver más detalles");

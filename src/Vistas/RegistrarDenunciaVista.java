@@ -9,12 +9,12 @@ package Vistas;
  *
  * @author Sofía
  */
-public class RealizarDenunciaVista extends javax.swing.JFrame {
+public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
     /**
      * Creates new form RealizarDenunciaVista
      */
-    public RealizarDenunciaVista() {
+    public RegistrarDenunciaVista() {
         initComponents();
     }
 
@@ -46,6 +46,7 @@ public class RealizarDenunciaVista extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         TXT_DESC_INCIDENTE = new javax.swing.JTextField();
         BTN_REGISTRAR = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,8 +62,6 @@ public class RealizarDenunciaVista extends javax.swing.JFrame {
         CBOX_DISTRITOS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Describir lugar:");
-
-        TXT_DESC_LUGAR.setText("jTextField3");
 
         jLabel6.setText("Foto:");
 
@@ -96,11 +95,12 @@ public class RealizarDenunciaVista extends javax.swing.JFrame {
 
         jLabel9.setText("Describir la Incidencia:");
 
-        TXT_DESC_INCIDENTE.setText("jTextField4");
-
         BTN_REGISTRAR.setBackground(new java.awt.Color(51, 255, 51));
         BTN_REGISTRAR.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         BTN_REGISTRAR.setText("REGISTRAR");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setText("REGISTRAR DENUNCIA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,13 +148,20 @@ public class RealizarDenunciaVista extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTN_REGISTRAR, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BTN_REGISTRAR, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(296, 296, 296))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -229,20 +236,21 @@ public class RealizarDenunciaVista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RealizarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RealizarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RealizarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RealizarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistrarDenunciaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RealizarDenunciaVista().setVisible(true);
+                new RegistrarDenunciaVista().setVisible(true);
             }
         });
     }
@@ -259,6 +267,7 @@ public class RealizarDenunciaVista extends javax.swing.JFrame {
     private javax.swing.JTextField TXT_FECHA;
     private javax.swing.JTextField TXT_HORA;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
