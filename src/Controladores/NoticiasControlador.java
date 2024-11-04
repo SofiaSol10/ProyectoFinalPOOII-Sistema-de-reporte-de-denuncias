@@ -47,5 +47,9 @@ public class NoticiasControlador {
         }
         
     }
+    public NoticiasVista mostrarVista()
+    {
+        return Nvista;
+    }
     
 }

@@ -59,7 +59,7 @@ public class NoticiasModelo {
             }
             
         }catch(Exception e){
-            e.printStackTrace(); 
+            e.printStackTrace(); //falta especificar mas esta parte
         }
     }
 }

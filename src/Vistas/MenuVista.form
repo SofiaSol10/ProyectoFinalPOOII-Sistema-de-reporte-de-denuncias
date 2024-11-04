@@ -31,14 +31,14 @@
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton3" min="-2" pref="189" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="208" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="BTN_NOTICIAS_MENU" max="32767" attributes="0"/>
+                          <Component id="BTN_VERDENUNCIA_MENU" pref="208" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton4" pref="189" max="32767" attributes="0"/>
-                          <Component id="jButton2" max="32767" attributes="0"/>
+                          <Component id="BTN_ESTADISTICAS_MENU" pref="189" max="32767" attributes="0"/>
+                          <Component id="BTN_REGISTRARDENUNCIA_MENU" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" pref="273" max="-2" attributes="0"/>
@@ -71,13 +71,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
+                          <Component id="BTN_NOTICIAS_MENU" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
+                          <Component id="BTN_REGISTRARDENUNCIA_MENU" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton3" alignment="3" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="jButton4" alignment="3" min="-2" pref="72" max="-2" attributes="0"/>
+                          <Component id="BTN_VERDENUNCIA_MENU" alignment="3" min="-2" pref="72" max="-2" attributes="0"/>
+                          <Component id="BTN_ESTADISTICAS_MENU" alignment="3" min="-2" pref="72" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                   </Group>
@@ -109,7 +109,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="BTN_NOTICIAS_MENU">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="ff" type="rgb"/>
@@ -117,10 +117,10 @@
         <Property name="text" type="java.lang.String" value="NOTICIAS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTN_NOTICIAS_MENUActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="BTN_REGISTRARDENUNCIA_MENU">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="ff" type="rgb"/>
@@ -128,10 +128,10 @@
         <Property name="text" type="java.lang.String" value="REGISTRA TU DENUNCIA"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTN_REGISTRARDENUNCIA_MENUActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="BTN_VERDENUNCIA_MENU">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="ff" type="rgb"/>
@@ -139,13 +139,16 @@
         <Property name="text" type="java.lang.String" value="VER DENUNCIAS"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="BTN_ESTADISTICAS_MENU">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="33" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="VER ESTADISTICAS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTN_ESTADISTICAS_MENUActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>

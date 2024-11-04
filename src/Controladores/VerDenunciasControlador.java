@@ -5,10 +5,20 @@
  */
 package Controladores;
 
+import Vistas.VerDenunciasVista;
+
+
+
 /**
  *
  * @author Sofía
  */
 public class VerDenunciasControlador {
+    private VerDenunciasVista Vverdenuncias;
     
+    
+    public VerDenunciasVista mostrarVista()
+    {
+        return Vverdenuncias;
+    }
 }

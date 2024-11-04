@@ -5,6 +5,9 @@
  */
 package Vistas;
 
+import Controladores.MenuControlador;
+import javax.swing.JButton;
+
 /**
  *
  * @author Sofía
@@ -14,8 +17,10 @@ public class MenuVista extends javax.swing.JFrame {
     /**
      * Creates new form MenuVista
      */
+    MenuControlador C_Menu;
     public MenuVista() {
         initComponents();
+        C_Menu = new MenuControlador(this);
     }
 
     /**
@@ -30,10 +35,10 @@ public class MenuVista extends javax.swing.JFrame {
         jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BTN_NOTICIAS_MENU = new javax.swing.JButton();
+        BTN_REGISTRARDENUNCIA_MENU = new javax.swing.JButton();
+        BTN_VERDENUNCIA_MENU = new javax.swing.JButton();
+        BTN_ESTADISTICAS_MENU = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -45,27 +50,32 @@ public class MenuVista extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinalpooii/file.png"))); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(255, 51, 0));
-        jButton1.setText("NOTICIAS");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BTN_NOTICIAS_MENU.setBackground(new java.awt.Color(255, 51, 0));
+        BTN_NOTICIAS_MENU.setText("NOTICIAS");
+        BTN_NOTICIAS_MENU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BTN_NOTICIAS_MENUActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 51, 0));
-        jButton2.setText("REGISTRA TU DENUNCIA");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BTN_REGISTRARDENUNCIA_MENU.setBackground(new java.awt.Color(255, 51, 0));
+        BTN_REGISTRARDENUNCIA_MENU.setText("REGISTRA TU DENUNCIA");
+        BTN_REGISTRARDENUNCIA_MENU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BTN_REGISTRARDENUNCIA_MENUActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 51, 0));
-        jButton3.setText("VER DENUNCIAS");
+        BTN_VERDENUNCIA_MENU.setBackground(new java.awt.Color(255, 51, 0));
+        BTN_VERDENUNCIA_MENU.setText("VER DENUNCIAS");
 
-        jButton4.setBackground(new java.awt.Color(255, 51, 0));
-        jButton4.setText("VER ESTADISTICAS");
+        BTN_ESTADISTICAS_MENU.setBackground(new java.awt.Color(255, 51, 0));
+        BTN_ESTADISTICAS_MENU.setText("VER ESTADISTICAS");
+        BTN_ESTADISTICAS_MENU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_ESTADISTICAS_MENUActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 102, 102));
@@ -82,13 +92,13 @@ public class MenuVista extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(BTN_NOTICIAS_MENU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BTN_VERDENUNCIA_MENU, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                         .addGap(87, 87, 87)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(BTN_ESTADISTICAS_MENU, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(BTN_REGISTRARDENUNCIA_MENU, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(86, 86, 86)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,12 +123,12 @@ public class MenuVista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BTN_NOTICIAS_MENU, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTN_REGISTRARDENUNCIA_MENU, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BTN_VERDENUNCIA_MENU, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTN_ESTADISTICAS_MENU, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(58, 58, 58))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -128,13 +138,18 @@ public class MenuVista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BTN_NOTICIAS_MENUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_NOTICIAS_MENUActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        C_Menu.actionPerformed(evt);
+    }//GEN-LAST:event_BTN_NOTICIAS_MENUActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BTN_REGISTRARDENUNCIA_MENUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_REGISTRARDENUNCIA_MENUActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BTN_REGISTRARDENUNCIA_MENUActionPerformed
+
+    private void BTN_ESTADISTICAS_MENUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_ESTADISTICAS_MENUActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BTN_ESTADISTICAS_MENUActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,11 +186,45 @@ public class MenuVista extends javax.swing.JFrame {
         });
     }
 
+    public JButton getBTN_ESTADISTICAS_MENU() {
+        return BTN_ESTADISTICAS_MENU;
+    }
+
+    public void setBTN_ESTADISTICAS_MENU(JButton BTN_ESTADISTICAS_MENU) {
+        this.BTN_ESTADISTICAS_MENU = BTN_ESTADISTICAS_MENU;
+    }
+
+    public JButton getBTN_NOTICIAS_MENU() {
+        return BTN_NOTICIAS_MENU;
+    }
+
+    public void setBTN_NOTICIAS_MENU(JButton BTN_NOTICIAS_MENU) {
+        this.BTN_NOTICIAS_MENU = BTN_NOTICIAS_MENU;
+    }
+
+    public JButton getBTN_REGISTRARDENUNCIA_MENU() {
+        return BTN_REGISTRARDENUNCIA_MENU;
+    }
+
+    public void setBTN_REGISTRARDENUNCIA_MENU(JButton BTN_REGISTRARDENUNCIA_MENU) {
+        this.BTN_REGISTRARDENUNCIA_MENU = BTN_REGISTRARDENUNCIA_MENU;
+    }
+
+    public JButton getBTN_VERDENUNCIA_MENU() {
+        return BTN_VERDENUNCIA_MENU;
+    }
+
+    public void setBTN_VERDENUNCIA_MENU(JButton BTN_VERDENUNCIA_MENU) {
+        this.BTN_VERDENUNCIA_MENU = BTN_VERDENUNCIA_MENU;
+    }
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton BTN_ESTADISTICAS_MENU;
+    private javax.swing.JButton BTN_NOTICIAS_MENU;
+    private javax.swing.JButton BTN_REGISTRARDENUNCIA_MENU;
+    private javax.swing.JButton BTN_VERDENUNCIA_MENU;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

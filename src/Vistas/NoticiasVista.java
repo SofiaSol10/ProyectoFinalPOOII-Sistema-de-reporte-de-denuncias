@@ -45,7 +45,7 @@ public class NoticiasVista extends javax.swing.JFrame {
         CuadroDescripcionNoticia = new javax.swing.JTextPane();
         VerDetalles = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setViewportView(ListaTitulosNoticias);
 
