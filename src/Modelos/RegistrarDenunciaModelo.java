@@ -18,10 +18,12 @@ public class RegistrarDenunciaModelo {
     private LocalTime Hora;
     private String distrito;
     private String descripcionLugar;
+    private String rutaFoto;
     private Boolean anonimato;
     private String nombreUsuario;
     private String tipoIncidencia;
     private String descripcionIncidencia;
+    
 
     public LocalDate getFecha() {
         return fecha;
@@ -85,6 +87,14 @@ public class RegistrarDenunciaModelo {
 
     public void setDescripcionIncidencia(String descripcionIncidencia) {
         this.descripcionIncidencia = descripcionIncidencia;
+    }
+
+    public String getRutaFoto() {
+        return rutaFoto;
+    }
+
+    public void setRutaFoto(String rutaFoto) {
+        this.rutaFoto = rutaFoto;
     }
     
     

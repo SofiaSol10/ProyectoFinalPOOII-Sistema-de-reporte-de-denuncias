@@ -61,7 +61,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
         jLabel4.setText("Distrito");
 
-        CBOX_DISTRITOS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBOX_DISTRITOS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo", "Chorrillos", "Cieneguilla", "Comas", "El Agustino,", "Independencia", "Jesús María", "La Molina", "La Victoria", "Lince", "Los Olivos", "Lurigancho", "Lurín", "Magdalena del Mar", "Miraflores", "Pachacámac", "Pucusana", "Pueblo Libre", "Puente Piedra", "Punta Hermosa", "Punta Negra", "Rímac", "San Bartolo", "San Borja", "San Isidro", "San Juan de Lurigancho", "San Juan de Miraflores", "San Luis", "San Martin de Porres", "San Miguel", "Santa Anita", "Santa María del Mar", "Santa Rosa", "Santiago de Surco", "Surquillo", "Villa el Salvador", "Villa Maria del Triunfo" }));
 
         jLabel5.setText("Describir lugar:");
 
@@ -93,7 +93,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
         jLabel8.setText("Nombre:");
 
-        CBOX_INCIDENCIAS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBOX_INCIDENCIAS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Robo-Hurto", "Extorsión", "Asesinato", "Violencia Doméstica", "Feminicidio", "Acoso Sexual", "Corrupción" }));
 
         jLabel9.setText("Describir la Incidencia:");
 
