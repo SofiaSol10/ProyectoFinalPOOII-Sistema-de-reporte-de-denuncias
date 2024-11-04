@@ -9,6 +9,6 @@ package Controladores;
  *
  * @author Sofía
  */
-public class RealizarDenunciaControlador {
+public class RegistrarDenunciaControlador {
     
 }
