@@ -102,6 +102,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
         BTN_REGISTRAR.setText("REGISTRAR");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 51, 51));
         jLabel10.setText("REGISTRAR DENUNCIA");
 
         jLabel11.setText("Tipo de incidencia:");
