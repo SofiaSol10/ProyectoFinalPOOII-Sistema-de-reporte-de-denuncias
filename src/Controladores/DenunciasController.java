@@ -16,9 +16,10 @@ import proyectofinalpooii.Denuncia;
  */
 public class DenunciasController {
     
-    public Denuncia cargarDenunciasPorDistrito(int distritoId){
+    public List<Denuncia> cargarDenunciasPorDistrito(int distritoId){
         
         List<String> fileList = new ArrayList<>();
+        List<Denuncia> ld = new ArrayList<>();
         DenunciasModelo dModel = new DenunciasModelo();
         Denuncia d = new Denuncia();
         fileList = dModel.listDenuncias(); //MODEL
@@ -35,19 +36,24 @@ public class DenunciasController {
                 String part5 = parts[4];
                 String part6 = parts[5];
                 String part7 = parts[6];
+                String part8 = parts[7];
+                String part9 = parts[8];
                 
-                if(part1.equals(distritoId)){
-                    //uc.setNombre(part1);
-                    //uc.setCaloriasDesayuno(Integer.parseInt(part2));
-                    //uc.setCaloriasAlmuerzo(Integer.parseInt(part3));
-                    //uc.setCaloriasCena(Integer.parseInt(part4));
-                    //uc.setTotalCalorias(Integer.parseInt(part5));
-                    //uc.setEstadoConsumo(part6);
-                    //uc.setRecomendacion(part7);
+                if(part3.equals(distritoId)){
+                    d.setFecha(part1);
+                    d.setHora(part2);
+                    d.setDistrito(Integer.parseInt(part3));
+                    d.setLugarDesc(part4);
+                    d.setEsAnonimo(part5.equals("TRUE")? true : false);
+                    d.setNombre(part6);
+                    d.setTipoDenu(part7);
+                    d.setDenuDesc(part8);
+                    d.setFoto(part9);
+                    ld.add(d);
                 }
             }
         
-        return d;
+        return ld;
     }
     
 }

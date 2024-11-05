@@ -6,10 +6,12 @@
 package Utils;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Paint;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -51,24 +53,27 @@ public class BarChartCreator {
         }
     }
     
-    public ChartPanel BarChart_Incidencia() {      
+    public ChartPanel BarChart_Denuncia() {      
       JFreeChart barChart = ChartFactory.createBarChart(
          "Incidencias por Distrito",           
          "",            
-         "Cantidad",            
+         "Cantidad Denuncias",            
          createDataset(),          
          PlotOrientation.VERTICAL,           
          true, false, false);
       
       final CategoryPlot plot = barChart.getCategoryPlot();
+      Font font3 = new Font("Dialog", Font.BOLD, 10); 
       final CategoryItemRenderer renderer = new CustomRenderer(
             new Paint[] {Color.red, Color.blue, Color.green,
                 Color.yellow, Color.orange, Color.cyan,
                 Color.magenta}
         );
       renderer.setItemLabelsVisible(true);
+      CategoryAxis domainAxis = plot.getDomainAxis();
+      domainAxis.setTickLabelFont(font3);
       plot.setRenderer(renderer);
-         
+      
       ChartPanel chartPanel = new ChartPanel( barChart );        
       chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
       return chartPanel;
@@ -79,7 +84,7 @@ public class BarChartCreator {
       final String robo = "Robo";        
       final String extorsion = "Extorsión";        
       final String asesinatos = "Asesinatos";        
-      final String viol_familiar = "Violencia Familiar";
+      final String viol_familiar = "Violencia%nFamiliar";
       final String feminicidio = "Feminicidio";
       final String acoso = "Acoso";
       final String corrupcion = "Corrupcion";
