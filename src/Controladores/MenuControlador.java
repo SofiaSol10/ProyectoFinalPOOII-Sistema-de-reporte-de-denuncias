@@ -52,5 +52,22 @@ public class MenuControlador {
                 
             }
         }
+        if(ae.getSource().equals(Vmenu.getBTN_VERDENUNCIA_MENU())){
+            try{
+             
+               
+            }catch(Exception e){
+                
+            }
+        }
+        if(ae.getSource().equals(Vmenu.getBTN_ESTADISTICAS_MENU())){
+            try{
+             
+               
+            }catch(Exception e){
+                
+            }
+        }
+        
     }
 }

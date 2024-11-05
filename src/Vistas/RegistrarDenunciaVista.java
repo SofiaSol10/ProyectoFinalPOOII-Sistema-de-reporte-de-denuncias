@@ -5,17 +5,22 @@
  */
 package Vistas;
 
+import Controladores.RegistrarDenunciaControlador;
+import Modelos.RegistrarDenunciaModelo;
+
 /**
  *
  * @author Sofía
  */
 public class RegistrarDenunciaVista extends javax.swing.JFrame {
-
+    RegistrarDenunciaControlador C_RDenuncia;
     /**
      * Creates new form RealizarDenunciaVista
      */
     public RegistrarDenunciaVista() {
         initComponents();
+        RegistrarDenunciaModelo M_RDenuncia = new RegistrarDenunciaModelo();
+        C_RDenuncia = new RegistrarDenunciaControlador(this,M_RDenuncia);
     }
 
     /**
