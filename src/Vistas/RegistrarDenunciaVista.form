@@ -34,7 +34,7 @@
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="TXT_HORA" alignment="0" max="32767" attributes="0"/>
-                          <Component id="CBOX_DISTRITOS" alignment="0" pref="165" max="32767" attributes="0"/>
+                          <Component id="CBOX_DISTRITOS" alignment="0" max="32767" attributes="0"/>
                           <Component id="TXT_FECHA" max="32767" attributes="0"/>
                       </Group>
                   </Group>

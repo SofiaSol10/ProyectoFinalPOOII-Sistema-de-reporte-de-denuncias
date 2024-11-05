@@ -5,7 +5,7 @@
  */
 package Controladores;
 
-import Modelos.RegistrarDenunciaModelo;
+import Modelos.DenunciasModelo;
 import Vistas.RegistrarDenunciaVista;
 
 /**
@@ -14,11 +14,11 @@ import Vistas.RegistrarDenunciaVista;
  */
 public class RegistrarDenunciaControlador {
     private RegistrarDenunciaVista Vregistrardenuncia;
-    private RegistrarDenunciaModelo Mregistrardenuncia;
+    private DenunciasModelo dModelo;
 
-    public RegistrarDenunciaControlador(RegistrarDenunciaVista Vregistrardenuncia, RegistrarDenunciaModelo Mregistrardenuncia) {
+    public RegistrarDenunciaControlador(RegistrarDenunciaVista Vregistrardenuncia, DenunciasModelo dm) {
         this.Vregistrardenuncia = Vregistrardenuncia;
-        this.Mregistrardenuncia = Mregistrardenuncia;
+        this.dModelo = dm;
     }
     
     public RegistrarDenunciaVista mostrarVista()

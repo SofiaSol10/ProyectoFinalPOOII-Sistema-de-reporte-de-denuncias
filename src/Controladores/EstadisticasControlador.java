@@ -5,19 +5,12 @@
  */
 package Controladores;
 
-import Vistas.EstadisticasVista;
 
 /**
  *
  * @author Sofía
  */
 public class EstadisticasControlador {
-    private EstadisticasVista V_estadisticas;
     
-    
-    public EstadisticasVista mostrarVista()
-    {
-        return V_estadisticas;
-    }
     
 }

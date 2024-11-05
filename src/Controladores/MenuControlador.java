@@ -6,7 +6,6 @@
 package Controladores;
 
 import Modelos.NoticiasModelo;
-import Modelos.RegistrarDenunciaModelo;
 import Vistas.MenuVista;
 import Vistas.NoticiasVista;
 import Vistas.RegistrarDenunciaVista;
@@ -43,10 +42,10 @@ public class MenuControlador {
         if(ae.getSource().equals(Vmenu.getBTN_REGISTRARDENUNCIA_MENU())){
             try{
              
-                RegistrarDenunciaModelo M_Rdenuncia = new RegistrarDenunciaModelo();
+                //RegistrarDenunciaModelo M_Rdenuncia = new RegistrarDenunciaModelo();
                 RegistrarDenunciaVista V_Rdenuncia = new RegistrarDenunciaVista();
-                RegistrarDenunciaControlador C_Rdenuncia = new RegistrarDenunciaControlador(V_Rdenuncia,M_Rdenuncia);
-                C_Rdenuncia.mostrarVista().setVisible(true);
+                //RegistrarDenunciaControlador C_Rdenuncia = new RegistrarDenunciaControlador(V_Rdenuncia,M_Rdenuncia);
+                //C_Rdenuncia.mostrarVista().setVisible(true);
                 
             }catch(Exception e){
                 

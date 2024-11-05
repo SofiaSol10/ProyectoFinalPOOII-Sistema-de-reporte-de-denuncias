@@ -5,17 +5,21 @@
  */
 package Vistas;
 
+import Utils.BarChartCreator;
+
 /**
  *
- * @author Sofía
+ * @author USUARIO
  */
 public class EstadisticasVista extends javax.swing.JFrame {
 
     /**
-     * Creates new form EstadisticasVista
+     * Creates new form EstadisticasIncidencias
      */
     public EstadisticasVista() {
         initComponents();
+        BarChartCreator nBG = new BarChartCreator();
+        setContentPane(nBG.BarChart_Incidencia());
     }
 
     /**
@@ -27,17 +31,17 @@ public class EstadisticasVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 759, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 474, Short.MAX_VALUE)
         );
 
         pack();
@@ -68,6 +72,7 @@ public class EstadisticasVista extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EstadisticasVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
