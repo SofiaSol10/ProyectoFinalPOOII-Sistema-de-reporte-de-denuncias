@@ -40,10 +40,6 @@ public class NoticiasModelo {
         this.descripciones = descripciones;
     }
     
-
-   
-
-    
     public void leerNoticia(){
         
         try{
