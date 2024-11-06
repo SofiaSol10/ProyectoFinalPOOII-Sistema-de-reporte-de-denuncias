@@ -19,7 +19,7 @@ public class EstadisticasVista extends javax.swing.JFrame {
     public EstadisticasVista() {
         initComponents();
         BarChartCreator nBG = new BarChartCreator();
-        setContentPane(nBG.BarChart_Incidencia());
+        setContentPane(nBG.BarChart_Denuncia());
     }
 
     /**
