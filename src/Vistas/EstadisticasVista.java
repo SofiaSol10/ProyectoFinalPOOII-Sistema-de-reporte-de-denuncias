@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Controladores.EstadisticasControlador;
 import Utils.BarChartCreator;
 
 /**
@@ -16,8 +17,10 @@ public class EstadisticasVista extends javax.swing.JFrame {
     /**
      * Creates new form EstadisticasIncidencias
      */
+    EstadisticasControlador C_Estadisticas;
     public EstadisticasVista() {
         initComponents();
+        C_Estadisticas = new EstadisticasControlador(this);
         BarChartCreator nBG = new BarChartCreator();
         setContentPane(nBG.BarChart_Denuncia());
     }
@@ -31,7 +34,7 @@ public class EstadisticasVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

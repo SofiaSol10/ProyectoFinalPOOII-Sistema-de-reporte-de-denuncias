@@ -6,6 +6,7 @@
 package Controladores;
 
 import Modelos.NoticiasModelo;
+import Vistas.EstadisticasVista;
 import Vistas.MenuVista;
 import Vistas.NoticiasVista;
 import Vistas.RegistrarDenunciaVista;
@@ -61,6 +62,9 @@ public class MenuControlador {
         }
         if(ae.getSource().equals(Vmenu.getBTN_ESTADISTICAS_MENU())){
             try{
+               EstadisticasVista V_Estadisticas = new EstadisticasVista();
+               EstadisticasControlador C_Estadisticas = new EstadisticasControlador(V_Estadisticas);
+               C_Estadisticas.mostrarVista().setVisible(true);
              
                
             }catch(Exception e){

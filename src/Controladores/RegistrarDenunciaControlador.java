@@ -5,7 +5,7 @@
  */
 package Controladores;
 
-import Modelos.DenunciasModelo;
+import Modelos.Denuncia;
 import Vistas.RegistrarDenunciaVista;
 
 /**
@@ -14,9 +14,9 @@ import Vistas.RegistrarDenunciaVista;
  */
 public class RegistrarDenunciaControlador {
     private RegistrarDenunciaVista Vregistrardenuncia;
-    private DenunciasModelo dModelo;
+    private Denuncia dModelo;
 
-    public RegistrarDenunciaControlador(RegistrarDenunciaVista Vregistrardenuncia, DenunciasModelo dm) {
+    public RegistrarDenunciaControlador(RegistrarDenunciaVista Vregistrardenuncia, Denuncia dm) {
         this.Vregistrardenuncia = Vregistrardenuncia;
         this.dModelo = dm;
     }

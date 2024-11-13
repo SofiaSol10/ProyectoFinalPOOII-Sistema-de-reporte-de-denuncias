@@ -5,24 +5,24 @@
  */
 package Controladores;
 
-import Modelos.DenunciasModelo;
+import Modelos.Denuncia;
 import java.util.ArrayList;
 import java.util.List;
-import proyectofinalpooii.Denuncia;
+import Modelos.Denuncia;
 
 /**
  *
  * @author USUARIO
  */
-public class DenunciasController {
+public class DenunciasControlador {
     
     public List<Denuncia> cargarDenunciasPorDistrito(int distritoId){
         
         List<String> fileList = new ArrayList<>();
         List<Denuncia> ld = new ArrayList<>();
-        DenunciasModelo dModel = new DenunciasModelo();
+        Denuncia dModel = new Denuncia();
         Denuncia d = new Denuncia();
-        fileList = dModel.listDenuncias(); //MODEL
+        //fileList = dModel.; //MODEL
         
         for(int i=0; i < fileList.size(); i++){
                 String txtLine = fileList.get(i);

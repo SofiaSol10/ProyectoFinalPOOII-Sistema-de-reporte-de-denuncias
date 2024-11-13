@@ -6,7 +6,7 @@
 package Vistas;
 
 import Controladores.RegistrarDenunciaControlador;
-import Modelos.DenunciasModelo;
+import Modelos.Denuncia;
 
 /**
  *
@@ -19,7 +19,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
      */
     public RegistrarDenunciaVista() {
         initComponents();
-        DenunciasModelo M_RDenuncia = new DenunciasModelo();
+        Denuncia M_RDenuncia = new Denuncia();
         //C_RDenuncia = new RegistrarDenunciaControlador(this,M_RDenuncia);
     }
 

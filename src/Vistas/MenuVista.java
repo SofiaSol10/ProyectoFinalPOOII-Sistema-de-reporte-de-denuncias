@@ -145,10 +145,12 @@ public class MenuVista extends javax.swing.JFrame {
 
     private void BTN_REGISTRARDENUNCIA_MENUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_REGISTRARDENUNCIA_MENUActionPerformed
         // TODO add your handling code here:
+        C_Menu.actionPerformed(evt);
     }//GEN-LAST:event_BTN_REGISTRARDENUNCIA_MENUActionPerformed
 
     private void BTN_ESTADISTICAS_MENUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_ESTADISTICAS_MENUActionPerformed
         // TODO add your handling code here:
+        C_Menu.actionPerformed(evt);
     }//GEN-LAST:event_BTN_ESTADISTICAS_MENUActionPerformed
 
     /**

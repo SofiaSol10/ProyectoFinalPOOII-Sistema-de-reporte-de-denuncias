@@ -5,12 +5,23 @@
  */
 package Controladores;
 
+import Vistas.EstadisticasVista;
+
+
 
 /**
  *
  * @author Sofía
  */
 public class EstadisticasControlador {
+    private  EstadisticasVista V_Estadisticas;
+
+    public EstadisticasControlador(EstadisticasVista V_Estadisticas) {
+        this.V_Estadisticas = V_Estadisticas;
+    }
     
+    public EstadisticasVista mostrarVista(){
+        return V_Estadisticas;
+    }
     
 }
