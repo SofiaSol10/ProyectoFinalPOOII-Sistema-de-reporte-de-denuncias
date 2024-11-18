@@ -7,6 +7,9 @@ package Vistas;
 
 import Controladores.RegistrarDenunciaControlador;
 import Modelos.Denuncia;
+import Utils.ImagesManager;
+import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -14,6 +17,8 @@ import Modelos.Denuncia;
  */
 public class RegistrarDenunciaVista extends javax.swing.JFrame {
     RegistrarDenunciaControlador C_RDenuncia;
+    
+    byte[] imgEnBytes = null;
     /**
      * Creates new form RealizarDenunciaVista
      */
@@ -230,6 +235,17 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
     private void BTN_CARGAR_FOTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_CARGAR_FOTOActionPerformed
         // TODO add your handling code here:
+        JFileChooser file_upload = new JFileChooser();
+        int res = file_upload.showOpenDialog(this);
+        
+        if(res == JFileChooser.APPROVE_OPTION) {
+            File file_path = new File(file_upload.getSelectedFile().getAbsolutePath());
+            String fileName = file_path.toString();
+            ImagesManager im = new ImagesManager();
+            // Imagen en Bytes para setear en la propiedad foto
+            imgEnBytes = im.uploadImage(file_path);
+            // Luego lo llamas al momento de presionar el boton REGISTRAR y lo seteas en el NEW DENUNCIA
+        }
     }//GEN-LAST:event_BTN_CARGAR_FOTOActionPerformed
 
     private void RB_SIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_SIActionPerformed

@@ -6,12 +6,21 @@
 package Modelos;
 
 import Repositories.DenunciaRepository;
+import Utils.DataBaseConnectionManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +29,27 @@ import java.util.List;
  * @author USUARIO
  */
 public class DenunciaModelo implements DenunciaRepository<Denuncia>{
-    
-    private static final String DIRECTORIO = "./src/proyectofinalpooii/";
-    private static final String ARCHIVODENUNCIAS = "Denuncias.txt";
-    private String notice;
 
     @Override
     public void save(Denuncia d){
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(new File(DIRECTORIO, ARCHIVODENUNCIAS), true));
-            writer.write(d.toString(), 0, d.toString().length());
-            writer.newLine();
-            writer.close();
+        try(Connection conn = DataBaseConnectionManager.getConnection()){
+            // TODO add your handling code here:
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO DENUNCIAS (id,fecha,hora,distrito,lugarDesc,esAnonimo,nombre,tipoDenuncia,descDenuncia,foto) VALUES(?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, 0);
+            pstmt.setString(2, d.getFecha());
+            pstmt.setString(3, d.getHora());
+            pstmt.setInt(4, d.getDistrito());
+            pstmt.setString(5, d.getLugarDesc());
+            pstmt.setBoolean(6, d.getEsAnonimo());
+            pstmt.setString(7, d.getNombre());
+            pstmt.setString(8, d.getTipoDenu());
+            pstmt.setString(9, d.getDenuDesc());
+            //Inserting Blob type
+            InputStream in = new ByteArrayInputStream(d.getFoto());
+            System.out.println("ESTA ES LA RUTA QUE SE GUARDA EN EL MEDIUM BLOB " + in.getClass().getName());
+            pstmt.setBlob(10, in);
+            //Executing the statement
+            pstmt.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,51 +62,29 @@ public class DenunciaModelo implements DenunciaRepository<Denuncia>{
 
     @Override
     public List<Denuncia> findAll(){
-        List<String> fileList = new ArrayList<>();
         List<Denuncia> listd = new ArrayList<>();
         
-        try{
-            //LEEMOS DENUNCIAS
-            FileReader fr = new FileReader(DIRECTORIO + ARCHIVODENUNCIAS);
-            BufferedReader br = new BufferedReader(fr);
-            
-            String d;
-            while((d=br.readLine())!= null){
-                    fileList.add(d);
+        try(Connection conn = DataBaseConnectionManager.getConnection()){
+            String query = "SELECT * FROM DENUNCIAS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Denuncia d = new Denuncia();
+                d.setId(rs.getInt("id"));
+                d.setFecha(rs.getString("fecha"));
+                d.setHora(rs.getString("hora"));
+                d.setDistrito(rs.getInt("distrito"));
+                d.setLugarDesc(rs.getString("lugatDesc"));
+                d.setEsAnonimo(rs.getBoolean("esAnonimo"));
+                d.setNombre(rs.getString("nombre"));
+                d.setTipoDenu(rs.getString("tipoDenuncia"));
+                d.setDenuDesc(rs.getString("descDenuncia"));
+                d.setFoto(rs.getBytes("foto"));
+                listd.add(d);
             }
-            br.close();
-            
-            Denuncia denuncia = new Denuncia();
-        
-            for(int i=0; i < fileList.size(); i++){
-                String txtLine = fileList.get(i);
-                String[] parts = new String[0];
-                parts = txtLine.split(",");
-                
-                String part1 = parts[0];
-                String part2 = parts[1];
-                String part3 = parts[2];
-                String part4 = parts[3];
-                String part5 = parts[4];
-                String part6 = parts[5];
-                String part7 = parts[6];
-                String part8 = parts[7];
-                String part9 = parts[8];
-                
-                denuncia.setFecha(part1);
-                denuncia.setHora(part2);
-                denuncia.setDistrito(Integer.parseInt(part3));
-                denuncia.setLugarDesc(part4);
-                denuncia.setEsAnonimo(part5.equals("TRUE")? true : false);
-                denuncia.setNombre(part6);
-                denuncia.setTipoDenu(part7);
-                denuncia.setDenuDesc(part8);
-                denuncia.setFoto(part9);
-                listd.add(denuncia);
-            }
-            
-                                    
-        }catch(Exception e){
+        }
+        catch(SQLException e){
             e.printStackTrace();
         }
         return listd;

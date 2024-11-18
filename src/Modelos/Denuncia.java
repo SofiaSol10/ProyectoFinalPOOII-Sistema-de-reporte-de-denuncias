@@ -11,6 +11,7 @@ package Modelos;
  */
 public class Denuncia {
     
+    private int id;
     private String fecha;
     private String hora;
     private int distrito;
@@ -19,12 +20,13 @@ public class Denuncia {
     private String nombre;
     private String tipoDenu;
     private String denuDesc;
-    private String foto;
+    private byte[] foto;
 
     public Denuncia() {
     }
 
-    public Denuncia(String fecha, String hora, int distrito, String lugarDesc, boolean esAnonimo, String nombre, String tipoDenu, String denuDesc, String foto) {
+    public Denuncia(int id, String fecha, String hora, int distrito, String lugarDesc, boolean esAnonimo, String nombre, String tipoDenu, String denuDesc, byte[] foto) {
+        this.id = id;
         this.fecha = fecha;
         this.hora = hora;
         this.distrito = distrito;
@@ -34,6 +36,14 @@ public class Denuncia {
         this.tipoDenu = tipoDenu;
         this.denuDesc = denuDesc;
         this.foto = foto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFecha() {
@@ -68,10 +78,10 @@ public class Denuncia {
         this.lugarDesc = lugarDesc;
     }
 
-    public boolean isEsAnonimo() {
+    public boolean getEsAnonimo() {
         return esAnonimo;
     }
-
+    
     public void setEsAnonimo(boolean esAnonimo) {
         this.esAnonimo = esAnonimo;
     }
@@ -100,11 +110,11 @@ public class Denuncia {
         this.denuDesc = denuDesc;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 }
