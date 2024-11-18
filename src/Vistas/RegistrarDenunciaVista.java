@@ -236,6 +236,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
     private void BTN_CARGAR_FOTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_CARGAR_FOTOActionPerformed
         // TODO add your handling code here:
         JFileChooser file_upload = new JFileChooser();
+        
         int res = file_upload.showOpenDialog(this);
         
         if(res == JFileChooser.APPROVE_OPTION) {
