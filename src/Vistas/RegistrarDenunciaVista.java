@@ -61,6 +61,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
         TXT_NOMBREUSUARIO = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("INGRESE DATOS DEL INCIDENTE");
@@ -131,7 +132,7 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(TXT_HORA, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CBOX_DISTRITOS, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
+                            .addComponent(CBOX_DISTRITOS, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(TXT_FECHA)))
                     .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

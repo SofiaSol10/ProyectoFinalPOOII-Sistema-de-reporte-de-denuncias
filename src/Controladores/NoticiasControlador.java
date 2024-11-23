@@ -7,10 +7,15 @@ package Controladores;
 
 import Modelos.NoticiasModelo;
 import Vistas.NoticiasVista;
+import java.awt.Image;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Vector;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -30,17 +35,24 @@ public class NoticiasControlador {
         List<String> listatitulos=Nmodelo.getTitulos();
         Nvista.getListaTitulosNoticias().setListData(listatitulos.toArray(new String[0]));//no me aceptaba list asi que tuve que agregarle .toArray(new String[0]) :c
     }
+    
+    public void visualizarImagenes(JLabel lbl, String ruta){
+        lbl.setIcon(null);
+        ImageIcon image = new ImageIcon(ruta);
+        ImageIcon icon = new ImageIcon(
+                image.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(), Image.SCALE_DEFAULT));
+        lbl.setIcon(icon);
+    }
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource().equals(Nvista.getVerDetalles())){
             try{
                 String tituloSeleccionado = Nvista.getListaTitulosNoticias().getSelectedValue();
                 int index = Nvista.getListaTitulosNoticias().getSelectedIndex();
                 List<String> titulos= Nmodelo.getTitulos();
-                String detallesSeleccionados = Nmodelo.getDescripciones().get(index);
-                Nvista.getCuadroDescripcionNoticia().setText(tituloSeleccionado+"\n"+detallesSeleccionados );
+                String ImgSeleccionado = Nmodelo.getImg().get(index);
                 
-                
-                
+                visualizarImagenes(Nvista.getLB_IMAGENES(),ImgSeleccionado);
+
             }catch(Exception e){
                 
             }

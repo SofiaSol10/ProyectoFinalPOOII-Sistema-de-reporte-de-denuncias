@@ -5,11 +5,13 @@
  */
 package Controladores;
 
+import Modelos.DenunciaModelo;
 import Modelos.NoticiasModelo;
 import Vistas.EstadisticasVista;
 import Vistas.MenuVista;
 import Vistas.NoticiasVista;
 import Vistas.RegistrarDenunciaVista;
+import Vistas.VerDenunciasVista;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -52,14 +54,17 @@ public class MenuControlador {
                 
             }
         }
-        if(ae.getSource().equals(Vmenu.getBTN_VERDENUNCIA_MENU())){
+       /* if(ae.getSource().equals(Vmenu.getBTN_VERDENUNCIA_MENU())){
             try{
-             
+               VerDenunciasVista V_verDenuncia = new VerDenunciasVista();
+               
+               DenunciasControlador C_verDenuncias = new DenunciasControlador(V_verDenuncia);
+               C_verDenuncias.mostrarVista().setVisible(true);
                
             }catch(Exception e){
                 
             }
-        }
+        }*/
         if(ae.getSource().equals(Vmenu.getBTN_ESTADISTICAS_MENU())){
             try{
                EstadisticasVista V_Estadisticas = new EstadisticasVista();

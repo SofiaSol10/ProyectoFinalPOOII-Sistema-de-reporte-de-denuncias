@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * @author Sofía
  */
 public class NoticiasModelo {
-    private List<String> titulos;
-    private List<String> descripciones;
+     private List<String> titulos;
+    private List<String> img;
     
     public NoticiasModelo() {
         titulos = new ArrayList<>(); // Inicializar la lista
-        descripciones = new ArrayList<>(); // Inicializar la lista
+        img = new ArrayList<>(); // Inicializar la lista
     }
 
     public List<String> getTitulos() {
@@ -32,13 +32,15 @@ public class NoticiasModelo {
         this.titulos = titulos;
     }
 
-    public List<String> getDescripciones() {
-        return descripciones;
+    public List<String> getImg() {
+        return img;
     }
 
-    public void setDescripciones(List<String> descripciones) {
-        this.descripciones = descripciones;
+    public void setImg(List<String> links) {
+        this.img = links;
     }
+
+   
     
     public void leerNoticia(){
         
@@ -47,10 +49,10 @@ public class NoticiasModelo {
             BufferedReader br = new BufferedReader(fr);
             String d;
             while ((d=br.readLine())!= null) {
-                String[] partes = d.split("-", 2); 
+                String[] partes = d.split("@", 2); 
                 if (partes.length == 2) {
                     titulos.add(partes[0].trim());
-                    descripciones.add(partes[1].trim());
+                    img.add(partes[1].trim());
                 }
             }
             
