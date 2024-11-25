@@ -40,6 +40,7 @@ public class VerDenunciasControlador {
     
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource().equals(Vverdenuncia.getBTN_MOSTRARDETALLES())){
+            limpiarDetallesDenuncia();
             int filaSeleccionada = Vverdenuncia.getTABLADENUNCIAS().getSelectedRow();
             if (filaSeleccionada != -1) {
                  int idDenuncia = (int) Vverdenuncia.getTABLADENUNCIAS().getValueAt(filaSeleccionada, 0); // El ID está en la primera columna 0
@@ -155,7 +156,16 @@ public class VerDenunciasControlador {
             comboBox.addItem(TipoDenuncias);
         }
     }
-    
+        private void limpiarDetallesDenuncia() {
+        Vverdenuncia.getLBL_NOMBRE().setText("");
+        Vverdenuncia.getLBL_FECHA().setText("");
+        Vverdenuncia.getLBL_HORA().setText("");
+        Vverdenuncia.getLBL_DISTRITO().setText("");
+        Vverdenuncia.getLBL_TIPODENUN().setText("");
+        Vverdenuncia.getTA_MOSTRARDESC_DENUN().setText("");
+        Vverdenuncia.getTA_MOSTRARDESC_LUGAR1().setText("");
+        Vverdenuncia.getLB_MOSTRARFOTO().setIcon(null); // Limpia la imagen mostrada
+        }
     public VerDenunciasVista mostrarVista()
     {
         return Vverdenuncia;
