@@ -89,11 +89,14 @@ public class RegistrarDenunciaControlador {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fechaTexto =  Vregistrardenuncia.getFTF_FECHA().getText();
         LocalDate fecha;
-        if (fechaTexto.matches("\\d{2}-\\d{2}-\\d{4}")) {
-        fecha = LocalDate.parse(fechaTexto, formatter);
-        }else{
-            JOptionPane.showMessageDialog(null, "Formato de fecha inválido.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        try {
+            fecha = LocalDate.parse(fechaTexto, formatter); 
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, 
+                "La fecha ingresada no es válida. Asegúrese de que exista y use el formato dd-MM-yyyy.", 
+                "Error de Validación", 
+                JOptionPane.ERROR_MESSAGE);
+            return; // Detener el registro
         }
         if (fecha.isAfter(LocalDate.now())) {
             JOptionPane.showMessageDialog(null, 
