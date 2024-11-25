@@ -5,13 +5,16 @@
  */
 package Utils;
 
+import Modelos.Denuncia;
 import Repositories.DenunciaRepository;
 import Service.DenunciaService;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Paint;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -58,10 +61,8 @@ public class BarChartCreator {
     }
     
     public ChartPanel BarChart_Denuncia(int id) { 
-        DenunciaRepository dr = new DenunciaRepository();
-        DenunciaService ds = new DenunciaService(dr);
         
-        Map<String, Integer> hm = ds.denunciasPorDistrito(id);
+        Map<String, Integer> hm =denunciasPorDistrito(id);
         
         
       JFreeChart barChart = ChartFactory.createBarChart(
@@ -112,5 +113,17 @@ public class BarChartCreator {
 
     return dataset;
    }
-    
+    public Map<String, Integer> denunciasPorDistrito(int id){
+        DenunciaRepository dr = new DenunciaRepository();
+        DenunciaService ds = new DenunciaService(dr);
+        
+        List<Denuncia> lden = ds.obtenerTodasLasDenuncias();
+        Map<String, Integer> denunciaMap = lden.stream()
+            .filter(denuncia -> denuncia.getDistrito() == id) // Filtrar por distrito
+            .collect(Collectors.groupingBy(
+                Denuncia::getTipoDenu, // Agrupar por tipo de denuncia
+                Collectors.collectingAndThen(Collectors.counting(), Long::intValue) // Contar los registros
+            ));
+        return denunciaMap;
+    }
 }

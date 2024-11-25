@@ -40,7 +40,7 @@ public class DenunciaRepository{
             
             stmt.setDate(1, Date.valueOf(denuncia.getFecha()));
             stmt.setTime(2, Time.valueOf(denuncia.getHora()));
-            stmt.setString(3, denuncia.getDistrito());
+            stmt.setInt(3, denuncia.getDistrito());
             stmt.setString(4, denuncia.getLugarDesc());
             stmt.setBoolean(5, denuncia.isEsAnonimo());
             stmt.setString(6, denuncia.getNombre());
@@ -85,7 +85,7 @@ public class DenunciaRepository{
                     .setId(rs.getInt("id"))
                     .setFecha(rs.getDate("fecha").toLocalDate())
                     .setHora(rs.getTime("Hora").toLocalTime())
-                    .setDistrito(rs.getString("distrito"))
+                    .setDistrito(rs.getInt("distrito"))
                     .setLugarDesc(rs.getString("lugarDesc"))
                     .setEsAnonimo(rs.getBoolean("esAnonimo"))
                     .setNombre(rs.getString("nombre"))
@@ -111,7 +111,7 @@ public class DenunciaRepository{
         try (Connection conn = DBCM.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setInt(1, id);
+            stmt.setInt(1, id);//el 1 es un indice del marcador de posición se refiere a la posición del signo de interrogación (?)del query
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -119,7 +119,7 @@ public class DenunciaRepository{
                       .setId(rs.getInt("id"))
                     .setFecha(rs.getDate("fecha").toLocalDate())
                     .setHora(rs.getTime("Hora").toLocalTime())
-                    .setDistrito(rs.getString("distrito"))
+                    .setDistrito(rs.getInt("distrito"))
                     .setLugarDesc(rs.getString("lugarDesc"))
                     .setEsAnonimo(rs.getBoolean("esAnonimo"))
                     .setNombre(rs.getString("nombre"))
@@ -143,7 +143,7 @@ public class DenunciaRepository{
         try (Connection conn = DBCM.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setInt(1, id);
+            stmt.setInt(1, id);//el 1 es un indice del marcador de posición se refiere a la posición del signo de interrogación (?)del query
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error al eliminar denuncia", e);

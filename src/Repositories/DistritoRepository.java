@@ -41,5 +41,29 @@ public class DistritoRepository {
         }
         return distrito;
     }
+    public int findIdDistrito(String dName){
+        List<Distrito> ld = findAll();
+        int idDistrito = ld.stream()
+            .filter(d -> d.getNombreDistrito().equalsIgnoreCase(dName))
+            .map(Distrito::getId)
+            .findFirst()
+                .orElse(1);
+        return idDistrito;
+    }
+    
+    public String findNombreDistritoById(int id) {
+        String nombreDistrito = null;
+        try (Connection conn = DBCM.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT nombreDistrito FROM DISTRITOS WHERE id = ?");
+            pstmt.setInt(1, id); // Asignar el parámetro ID ...el 1 es un indice del marcador de posición se refiere a la posición del signo de interrogación (?)del query
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                nombreDistrito = resultSet.getString("nombreDistrito");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving Distrito name by ID", e);
+        }
+        return nombreDistrito;
+    }
 }
 

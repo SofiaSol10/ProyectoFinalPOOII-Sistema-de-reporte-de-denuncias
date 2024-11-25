@@ -6,13 +6,26 @@
 package Vistas;
 
 import Controladores.EstadisticasControlador;
+import Modelos.Distrito;
+import Repositories.DistritoRepository;
+import Service.DenunciaService;
+import Service.DistritoService;
 import Utils.BarChartCreator;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
  * @author USUARIO
  */
 public class EstadisticasVista extends javax.swing.JFrame {
+    private DistritoRepository distritoRepository = new DistritoRepository();
+    private DistritoService distritoService = new DistritoService(distritoRepository);
 
     /**
      * Creates new form EstadisticasIncidencias
@@ -21,10 +34,41 @@ public class EstadisticasVista extends javax.swing.JFrame {
     public EstadisticasVista() {
         initComponents();
         C_Estadisticas = new EstadisticasControlador(this);
-        BarChartCreator nBG = new BarChartCreator();
-        setContentPane(nBG.BarChart_Denuncia());
+        fillCombo();
+        getContentPane().add(createContainer());
     }
-
+    
+    public JPanel createContainer(){
+        int disId = getDistritoId();
+        
+        // In the instruction below you have to create and add your ChartPanel
+        BarChartCreator nBG = new BarChartCreator();
+        ChartPanel crp = nBG.BarChart_Denuncia(disId);
+        crp.setDomainZoomable(false);
+        JPGraphics.removeAll();
+        JPGraphics.setLayout(new BorderLayout());
+        JPGraphics.add(crp, BorderLayout.CENTER);
+        JPGraphics.revalidate();
+        JPGraphics.repaint();
+        JPGraphics.updateUI();
+        return JPGraphics;
+    }
+    
+    public void fillCombo(){
+        List<Distrito> ld = new ArrayList<>();
+        ld = distritoService.obtenerTodosLosDistritos();
+        System.out.println("CANTIDAD DE REGISTROS: " + ld.size());
+        ld.stream().forEach(di -> System.out.println(di.getNombreDistrito()));
+        ld.stream().forEach(d -> cboDistritos.addItem(d.getNombreDistrito()));
+    }
+    
+    public int getDistritoId(){
+        int idDistrito = distritoService.obtenerIdDistrito(cboDistritos.getSelectedItem().toString());
+        System.out.println("EL NUEVO ID ES: " + idDistrito);
+        return idDistrito;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,21 +78,73 @@ public class EstadisticasVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cboDistritos = new javax.swing.JComboBox<>();
+        JPGraphics = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        cboDistritos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDistritosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout JPGraphicsLayout = new javax.swing.GroupLayout(JPGraphics);
+        JPGraphics.setLayout(JPGraphicsLayout);
+        JPGraphicsLayout.setHorizontalGroup(
+            JPGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 764, Short.MAX_VALUE)
+        );
+        JPGraphicsLayout.setVerticalGroup(
+            JPGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 431, Short.MAX_VALUE)
+        );
+
+        jLabel1.setText("DISTRITO: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 759, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(JPGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cboDistritos, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboDistritos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JPGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cboDistritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDistritosActionPerformed
+        // TODO add your handling code here:
+        Object obj = evt.getSource();
+        if(obj==cboDistritos){
+            getContentPane().add(createContainer());
+            this.revalidate();
+            this.repaint();
+            
+            System.out.println("ENTRO AL ACTION PERFORMED");
+        }
+    }//GEN-LAST:event_cboDistritosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,5 +183,8 @@ public class EstadisticasVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPGraphics;
+    private javax.swing.JComboBox<String> cboDistritos;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

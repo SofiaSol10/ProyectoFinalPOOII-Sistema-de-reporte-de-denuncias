@@ -37,4 +37,6 @@ public class DenunciaService {
         denunciaRepository.deleteById(id);
     }
     
+    
+    
 }

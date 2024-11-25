@@ -16,7 +16,7 @@ public class Denuncia {
     private int id;
     private LocalDate fecha;
     private LocalTime hora;
-    private String distrito;
+    private int distrito;
     private String lugarDesc;
     private boolean esAnonimo;
     private String nombre;
@@ -51,7 +51,7 @@ public class Denuncia {
         return hora;
     }
 
-    public String getDistrito() {
+    public int getDistrito() {
         return distrito;
     }
 
@@ -91,7 +91,7 @@ public class Denuncia {
         this.hora = hora;
     }
 
-    public void setDistrito(String distrito) {
+    public void setDistrito(int distrito) {
         this.distrito = distrito;
     }
 
@@ -145,7 +145,7 @@ public class Denuncia {
         private int id;
         private LocalDate fecha;
         private LocalTime hora;
-        private String distrito;
+        private int distrito;
         private String lugarDesc;
         private boolean esAnonimo;
         private String nombre;
@@ -168,7 +168,7 @@ public class Denuncia {
             return this;
         }
 
-        public DenunciaBuilder setDistrito(String distrito) {
+        public DenunciaBuilder setDistrito(int distrito) {
             this.distrito = distrito;
             return this;
         }

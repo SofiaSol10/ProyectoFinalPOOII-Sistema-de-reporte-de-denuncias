@@ -112,7 +112,8 @@ public class RegistrarDenunciaControlador {
             JOptionPane.showMessageDialog(null, "Formato de hora inválido. Debe ser HH:mm.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String distrito = Vregistrardenuncia.getCBOX_DISTRITOS().getSelectedItem().toString();
+        String distritoseleccionado = Vregistrardenuncia.getCBOX_DISTRITOS().getSelectedItem().toString();
+        int id_distrito=distritoService.obtenerIdDistrito(distritoseleccionado);
         String lugarDesc = Vregistrardenuncia.getTXT_DESC_LUGAR().getText();
         if (lugarDesc.isEmpty()) {
             JOptionPane.showMessageDialog(null, 
@@ -146,7 +147,7 @@ public class RegistrarDenunciaControlador {
         Denuncia denuncia = new Denuncia.DenunciaBuilder()
                 .setFecha(fecha)
                 .setHora(hora)
-                .setDistrito(distrito)
+                .setDistrito(id_distrito)
                 .setLugarDesc(lugarDesc)
                 .setEsAnonimo(esAnonimo)
                 .setNombre(nombre)

@@ -26,12 +26,11 @@ public class DistritoService {
     }
     
     public int obtenerIdDistrito(String dName){
-        List<Distrito> ld = distritoRepository.findAll();
-        int idDistrito = ld.stream()
-            .filter(d -> d.getNombreDistrito().equalsIgnoreCase(dName))
-            .map(Distrito::getId)
-            .findFirst()
-                .orElse(1);
-        return idDistrito;
+        
+        return distritoRepository.findIdDistrito(dName);
+    }
+    
+    public String obtenerNombreDistritoporID(int id){
+        return distritoRepository.findNombreDistritoById(id);
     }
 }

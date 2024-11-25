@@ -49,7 +49,7 @@ public class VerDenunciasControlador {
                  Vverdenuncia.getLBL_NOMBRE().setText(denuncia.getNombre());
                  Vverdenuncia.getLBL_FECHA().setText(denuncia.getFecha().toString());
                  Vverdenuncia.getLBL_HORA().setText(denuncia.getHora().toString());
-                 Vverdenuncia.getLBL_DISTRITO().setText(denuncia.getDistrito());
+                 Vverdenuncia.getLBL_DISTRITO().setText(distritoService.obtenerNombreDistritoporID(denuncia.getDistrito()));
                  Vverdenuncia.getLBL_TIPODENUN().setText(denuncia.getTipoDenu());
                  Vverdenuncia.getTA_MOSTRARDESC_DENUN().setText(denuncia.getDenuDesc());
                  Vverdenuncia.getTA_MOSTRARDESC_LUGAR1().setText(denuncia.getLugarDesc());
@@ -65,40 +65,47 @@ public class VerDenunciasControlador {
     }  
         if(ae.getSource().equals(Vverdenuncia.getBTN_FILTRAR())){
             
-            DenunciaRepository denRepository = new DenunciaRepository();
-        DenunciaService denService = new DenunciaService(denRepository); 
-        List<Denuncia> listaDenuncias = denService.obtenerTodasLasDenuncias();
+       
+        List<Denuncia> listaDenuncias = denunciaService.obtenerTodasLasDenuncias();
          
         String distritoSeleccionado = Vverdenuncia.getCB_FILTARADISTRITO().getSelectedItem().toString();
+        int id_distritoSeleccionado=distritoSeleccionado.isEmpty() 
+                                  ? -1 // Usamos -1 para indicar que no se seleccionó un distrito
+                                  : distritoService.obtenerIdDistrito(distritoSeleccionado);
         String tipoDenunciaSeleccionada = Vverdenuncia.getCB_FILTRARINCIDENCIA().getSelectedItem().toString() ;
         
-            if (distritoSeleccionado.isEmpty() && !tipoDenunciaSeleccionada.isEmpty()) {
-                List<Denuncia> denunciassegunTipo = listaDenuncias.stream()
-                    .filter(denuncia -> tipoDenunciaSeleccionada.equalsIgnoreCase(denuncia.getTipoDenu()))
-                    .collect(Collectors.toList());
-                llenarTabla(denunciassegunTipo);
-            }
+            if (id_distritoSeleccionado == -1 && !tipoDenunciaSeleccionada.isEmpty()) {
+                    // Filtrar por tipo de denuncia únicamente
+                    List<Denuncia> denunciasSegunTipo = listaDenuncias.stream()
+                        .filter(denuncia -> tipoDenunciaSeleccionada.equalsIgnoreCase(denuncia.getTipoDenu()))
+                        .collect(Collectors.toList());
+                    llenarTabla(denunciasSegunTipo);
+                }
 
-            if (!distritoSeleccionado.isEmpty() && tipoDenunciaSeleccionada.isEmpty()) {
-                List<Denuncia> denunciassegunDistrito = listaDenuncias.stream()
-                    .filter(denuncia -> distritoSeleccionado.equalsIgnoreCase(denuncia.getDistrito()))
-                    .collect(Collectors.toList());
-                llenarTabla(denunciassegunDistrito);
-            }
+            if (id_distritoSeleccionado != -1 && tipoDenunciaSeleccionada.isEmpty()) {
+                    // Filtrar por distrito únicamente
+                    List<Denuncia> denunciasSegunDistrito = listaDenuncias.stream()
+                        .filter(denuncia -> denuncia.getDistrito() == id_distritoSeleccionado) // Comparar IDs directamente
+                        .collect(Collectors.toList());
+                    llenarTabla(denunciasSegunDistrito);
+                }
 
-            if (!distritoSeleccionado.isEmpty() && !tipoDenunciaSeleccionada.isEmpty()) {
-                List<Denuncia> denunciassegunDistritoYTipo = listaDenuncias.stream()
-                    .filter(denuncia -> distritoSeleccionado.equalsIgnoreCase(denuncia.getDistrito())
-                                     && tipoDenunciaSeleccionada.equalsIgnoreCase(denuncia.getTipoDenu()))
-                    .collect(Collectors.toList());
-                llenarTabla(denunciassegunDistritoYTipo);
-            }
-            if (distritoSeleccionado.isEmpty() && tipoDenunciaSeleccionada.isEmpty()) {
-                JOptionPane.showMessageDialog(null, 
-                "Por Favor Seleccione las opciones de filtrado.", 
-                "INDICACIÓN", 
-                JOptionPane.ERROR_MESSAGE);
-            }
+            if (id_distritoSeleccionado != -1 && !tipoDenunciaSeleccionada.isEmpty()) {
+                    // Filtrar por distrito y tipo de denuncia
+                    List<Denuncia> denunciasSegunDistritoYTipo = listaDenuncias.stream()
+                        .filter(denuncia -> denuncia.getDistrito() == id_distritoSeleccionado // Comparar IDs directamente
+                                                 && tipoDenunciaSeleccionada.equalsIgnoreCase(denuncia.getTipoDenu()))
+                        .collect(Collectors.toList());
+                    llenarTabla(denunciasSegunDistritoYTipo);
+                }
+
+            if (id_distritoSeleccionado == -1 && tipoDenunciaSeleccionada.isEmpty()) {
+                    // Mostrar mensaje de error si no se seleccionaron filtros
+                    JOptionPane.showMessageDialog(null, 
+                        "Por favor seleccione las opciones de filtrado.", 
+                        "INDICACIÓN", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
 
         }
         if(ae.getSource().equals(Vverdenuncia.getBTN_QUITARFILTRO())){
