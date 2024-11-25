@@ -5,6 +5,7 @@
  */
 package proyectofinalpooii;
 
+import Controladores.MenuControlador;
 import Vistas.MenuVista;
 
 /**
@@ -18,8 +19,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        MenuVista objetoVista = new MenuVista();
-         objetoVista.setVisible(true);
+        MenuVista V_menu = new MenuVista();
+        MenuControlador C_menu = new MenuControlador(V_menu);
+        
+         C_menu.mostrarVista().setVisible(true);
     }
     
 }

@@ -7,9 +7,23 @@ package Vistas;
 
 import Controladores.RegistrarDenunciaControlador;
 import Modelos.Denuncia;
+import Repositories.DenunciaRepository;
+import Repositories.DistritoRepository;
+import Service.DenunciaService;
+import Service.DistritoService;
 import Utils.ImagesManager;
 import java.io.File;
+import java.text.ParseException;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -24,8 +38,24 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
      */
     public RegistrarDenunciaVista() {
         initComponents();
-        Denuncia M_RDenuncia = new Denuncia();
-        //C_RDenuncia = new RegistrarDenunciaControlador(this,M_RDenuncia);
+        DenunciaRepository denunciaRepository = new DenunciaRepository();
+        DenunciaService denunciaService = new DenunciaService(denunciaRepository);
+        DistritoRepository distritosRepository = new DistritoRepository();
+        DistritoService distritosService = new DistritoService(distritosRepository);
+        
+        C_RDenuncia = new RegistrarDenunciaControlador(this,denunciaService,distritosService);
+        C_RDenuncia.llenarComboBoxDistritos(CBOX_DISTRITOS);
+        C_RDenuncia.llenarComboBoxTipoDenuncias(CBOX_TIPODENUNCIAS);
+        C_RDenuncia.llenarComboBoxHora1(CB_HORA_1);
+        C_RDenuncia.llenarComboBoxHora2(CB_HORA_2);
+        setMaskForDateField();
+        
+        ButtonGroup group = new ButtonGroup();
+        group.add(RB_NO);
+        group.add(RB_SI);
+        
+        limpiarCampos();
+        
     }
 
     /**
@@ -39,26 +69,31 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        TXT_FECHA = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        TXT_HORA = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         CBOX_DISTRITOS = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        TXT_DESC_LUGAR = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         BTN_CARGAR_FOTO = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         RB_SI = new javax.swing.JRadioButton();
         RB_NO = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
-        CBOX_INCIDENCIAS = new javax.swing.JComboBox<>();
+        CBOX_TIPODENUNCIAS = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        TXT_DESC_INCIDENTE = new javax.swing.JTextField();
         BTN_REGISTRAR = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         TXT_NOMBREUSUARIO = new javax.swing.JTextField();
+        FTF_FECHA = new javax.swing.JFormattedTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        CB_HORA_1 = new javax.swing.JComboBox<>();
+        CB_HORA_2 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TXT_DESC_LUGAR = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TXT_DESC_DENUN = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -66,17 +101,21 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("INGRESE DATOS DEL INCIDENTE");
 
-        jLabel2.setText("Fecha");
+        jLabel2.setText("Fecha(dd-MM-yyyy):");
 
-        jLabel3.setText("Hora");
+        jLabel3.setText("Hora:");
 
         jLabel4.setText("Distrito");
 
-        CBOX_DISTRITOS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo", "Chorrillos", "Cieneguilla", "Comas", "El Agustino,", "Independencia", "Jesús María", "La Molina", "La Victoria", "Lince", "Los Olivos", "Lurigancho", "Lurín", "Magdalena del Mar", "Miraflores", "Pachacámac", "Pucusana", "Pueblo Libre", "Puente Piedra", "Punta Hermosa", "Punta Negra", "Rímac", "San Bartolo", "San Borja", "San Isidro", "San Juan de Lurigancho", "San Juan de Miraflores", "San Luis", "San Martin de Porres", "San Miguel", "Santa Anita", "Santa María del Mar", "Santa Rosa", "Santiago de Surco", "Surquillo", "Villa el Salvador", "Villa Maria del Triunfo" }));
+        CBOX_DISTRITOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBOX_DISTRITOSActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Describir lugar:");
+        jLabel5.setText("Describir lugar de los hechos:");
 
-        jLabel6.setText("Foto:");
+        jLabel6.setText("Foto (opcional):");
 
         BTN_CARGAR_FOTO.setBackground(new java.awt.Color(255, 102, 102));
         BTN_CARGAR_FOTO.setText("Cargar Foto");
@@ -104,19 +143,58 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
         jLabel8.setText("Nombre:");
 
-        CBOX_INCIDENCIAS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Robo-Hurto", "Extorsión", "Asesinato", "Violencia Doméstica", "Feminicidio", "Acoso Sexual", "Corrupción" }));
-
-        jLabel9.setText("Describir la Incidencia:");
+        jLabel9.setText("Describir Denuncia:");
 
         BTN_REGISTRAR.setBackground(new java.awt.Color(51, 255, 51));
         BTN_REGISTRAR.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         BTN_REGISTRAR.setText("REGISTRAR");
+        BTN_REGISTRAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTN_REGISTRARActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel10.setText("REGISTRAR DENUNCIA");
+        jLabel11.setText("Tipo de Denuncia:");
 
-        jLabel11.setText("Tipo de incidencia:");
+        FTF_FECHA.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MM-yyyy"))));
+        FTF_FECHA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FTF_FECHAActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(204, 0, 51));
+
+        jLabel12.setFont(new java.awt.Font("Determination Sans Web", 1, 36)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("REGISTRAR DENUNCIA");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(302, 302, 302))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel12)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jLabel10.setText(":");
+
+        TXT_DESC_LUGAR.setColumns(20);
+        TXT_DESC_LUGAR.setRows(5);
+        jScrollPane1.setViewportView(TXT_DESC_LUGAR);
+
+        TXT_DESC_DENUN.setColumns(20);
+        TXT_DESC_DENUN.setRows(5);
+        jScrollPane2.setViewportView(TXT_DESC_DENUN);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,109 +204,117 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TXT_HORA, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CBOX_DISTRITOS, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TXT_FECHA)))
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(1, 1, 1)
-                            .addComponent(jLabel1))
-                        .addComponent(TXT_DESC_LUGAR)
-                        .addComponent(BTN_CARGAR_FOTO, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabel8)
-                                .addGap(26, 26, 26)
-                                .addComponent(TXT_NOMBREUSUARIO))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(TXT_DESC_INCIDENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(CBOX_DISTRITOS, 0, 203, Short.MAX_VALUE)
+                                        .addComponent(FTF_FECHA))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(CB_HORA_1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CB_HORA_2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1))
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
                                     .addComponent(jLabel11)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(CBOX_INCIDENCIAS, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel7))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TXT_NOMBREUSUARIO, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                                            .addComponent(CBOX_TIPODENUNCIAS, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(54, 54, 54)
+                                        .addComponent(RB_SI)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(RB_NO)
+                                        .addGap(0, 117, Short.MAX_VALUE)))))
+                        .addGap(66, 66, 66))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RB_SI)
-                        .addGap(55, 55, 55)
-                        .addComponent(RB_NO)
-                        .addGap(56, 56, 56)))
-                .addGap(65, 65, 65))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel1))
+                            .addComponent(BTN_CARGAR_FOTO, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(664, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BTN_REGISTRAR, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(296, 296, 296))))
+                .addComponent(BTN_REGISTRAR, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(TXT_FECHA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(RB_SI)
-                    .addComponent(RB_NO))
-                .addGap(18, 18, 18)
+                    .addComponent(RB_NO)
+                    .addComponent(FTF_FECHA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(CB_HORA_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CB_HORA_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(CBOX_TIPODENUNCIAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(CBOX_DISTRITOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(TXT_NOMBREUSUARIO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(TXT_HORA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(CBOX_DISTRITOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CBOX_INCIDENCIAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11))
-                                .addGap(37, 37, 37)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXT_DESC_LUGAR, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BTN_CARGAR_FOTO))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TXT_DESC_INCIDENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(182, 182, 182)))
                         .addGap(13, 13, 13)
                         .addComponent(BTN_REGISTRAR))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(TXT_NOMBREUSUARIO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13))
         );
 
         pack();
@@ -236,18 +322,9 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
 
     private void BTN_CARGAR_FOTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_CARGAR_FOTOActionPerformed
         // TODO add your handling code here:
-        JFileChooser file_upload = new JFileChooser();
-        
-        int res = file_upload.showOpenDialog(this);
-        
-        if(res == JFileChooser.APPROVE_OPTION) {
-            File file_path = new File(file_upload.getSelectedFile().getAbsolutePath());
-            String fileName = file_path.toString();
-            ImagesManager im = new ImagesManager();
-            // Imagen en Bytes para setear en la propiedad foto
-            imgEnBytes = im.uploadImage(file_path);
-            // Luego lo llamas al momento de presionar el boton REGISTRAR y lo seteas en el NEW DENUNCIA
-        }
+       
+        C_RDenuncia.actionPerformed(evt);
+
     }//GEN-LAST:event_BTN_CARGAR_FOTOActionPerformed
 
     private void RB_SIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_SIActionPerformed
@@ -257,6 +334,19 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
     private void RB_NOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_NOActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RB_NOActionPerformed
+
+    private void FTF_FECHAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FTF_FECHAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FTF_FECHAActionPerformed
+
+    private void BTN_REGISTRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_REGISTRARActionPerformed
+        // TODO add your handling code here:
+        C_RDenuncia.actionPerformed(evt);
+    }//GEN-LAST:event_BTN_REGISTRARActionPerformed
+
+    private void CBOX_DISTRITOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBOX_DISTRITOSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBOX_DISTRITOSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,22 +383,179 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
             }
         });
     }
+   
+    private void setMaskForDateField() {
+        try {
+            // Crear un MaskFormatter para el formato de FECHA
+            MaskFormatter dateFormatter = new MaskFormatter("##-##-####");
+            dateFormatter.setValidCharacters("0123456789");
+
+            // Aplicar el MaskFormatter al campo de fecha que arrastraste
+            FTF_FECHA.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(dateFormatter));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    
+ 
+    
+    
+    
+   public void limpiarCampos(){ //lo estoy llamando al controlador, por eso es public
+        TXT_DESC_DENUN.setText("");
+        TXT_DESC_LUGAR.setText("");
+        TXT_NOMBREUSUARIO.setText("");
+
+        // Limpiar los JFormattedTextField
+        FTF_FECHA.setValue(null);
+        
+
+        // Limpiar los JComboBox
+        CBOX_DISTRITOS.setSelectedIndex(0); // Restablecer al primer valor
+        CBOX_TIPODENUNCIAS.setSelectedIndex(0); // Restablecer al primer valor
+        CB_HORA_1.setSelectedIndex(0);
+        CB_HORA_2.setSelectedIndex(0);
+
+        // Limpiar los JRadioButton (SI predeterminado)
+        RB_SI.setSelected(true);
+        RB_NO.setSelected(false);
+        
+        
+   }
+    
+    
+
+    public RegistrarDenunciaControlador getC_RDenuncia() {
+        return C_RDenuncia;
+    }
+
+    public void setC_RDenuncia(RegistrarDenunciaControlador C_RDenuncia) {
+        this.C_RDenuncia = C_RDenuncia;
+    }
+
+    public JButton getBTN_CARGAR_FOTO() {
+        return BTN_CARGAR_FOTO;
+    }
+
+    public void setBTN_CARGAR_FOTO(JButton BTN_CARGAR_FOTO) {
+        this.BTN_CARGAR_FOTO = BTN_CARGAR_FOTO;
+    }
+
+    public JButton getBTN_REGISTRAR() {
+        return BTN_REGISTRAR;
+    }
+
+    public void setBTN_REGISTRAR(JButton BTN_REGISTRAR) {
+        this.BTN_REGISTRAR = BTN_REGISTRAR;
+    }
+
+    public JComboBox<String> getCBOX_DISTRITOS() {
+        return CBOX_DISTRITOS;
+    }
+
+    public void setCBOX_DISTRITOS(JComboBox<String> CBOX_DISTRITOS) {
+        this.CBOX_DISTRITOS = CBOX_DISTRITOS;
+    }
+
+    public JComboBox<String> getCBOX_TIPODENUNCIAS() {
+        return CBOX_TIPODENUNCIAS;
+    }
+
+    public void setCBOX_TIPODENUNCIAS(JComboBox<String> CBOX_TIPODENUNCIAS) {
+        this.CBOX_TIPODENUNCIAS = CBOX_TIPODENUNCIAS;
+    }
+
+    public JTextArea getTXT_DESC_DENUN() {
+        return TXT_DESC_DENUN;
+    }
+
+    public void setTXT_DESC_DENUN(JTextArea TXT_DESC_DENUN) {
+        this.TXT_DESC_DENUN = TXT_DESC_DENUN;
+    }
+
+    public JTextArea getTXT_DESC_LUGAR() {
+        return TXT_DESC_LUGAR;
+    }
+
+    public void setTXT_DESC_LUGAR(JTextArea TXT_DESC_LUGAR) {
+        this.TXT_DESC_LUGAR = TXT_DESC_LUGAR;
+    }
+
+   
+  
+
+    public JRadioButton getRB_NO() {
+        return RB_NO;
+    }
+
+    public void setRB_NO(JRadioButton RB_NO) {
+        this.RB_NO = RB_NO;
+    }
+
+    public JRadioButton getRB_SI() {
+        return RB_SI;
+    }
+
+    public void setRB_SI(JRadioButton RB_SI) {
+        this.RB_SI = RB_SI;
+    }
+
+    
+
+ 
+
+    public JFormattedTextField getFTF_FECHA() {
+        return FTF_FECHA;
+    }
+
+    public void setFTF_FECHA(JFormattedTextField FTF_FECHA) {
+        this.FTF_FECHA = FTF_FECHA;
+    }
+
+    public JComboBox<String> getCB_HORA_1() {
+        return CB_HORA_1;
+    }
+
+    public void setCB_HORA_1(JComboBox<String> CB_HORA_1) {
+        this.CB_HORA_1 = CB_HORA_1;
+    }
+
+    public JComboBox<String> getCB_HORA_2() {
+        return CB_HORA_2;
+    }
+
+    public void setCB_HORA_2(JComboBox<String> CB_HORA_2) {
+        this.CB_HORA_2 = CB_HORA_2;
+    }
+    
+    public JTextField getTXT_NOMBREUSUARIO() {
+        return TXT_NOMBREUSUARIO;
+    }
+
+    public void setTXT_NOMBREUSUARIO(JTextField TXT_NOMBREUSUARIO) {
+        this.TXT_NOMBREUSUARIO = TXT_NOMBREUSUARIO;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTN_CARGAR_FOTO;
     private javax.swing.JButton BTN_REGISTRAR;
     private javax.swing.JComboBox<String> CBOX_DISTRITOS;
-    private javax.swing.JComboBox<String> CBOX_INCIDENCIAS;
+    private javax.swing.JComboBox<String> CBOX_TIPODENUNCIAS;
+    private javax.swing.JComboBox<String> CB_HORA_1;
+    private javax.swing.JComboBox<String> CB_HORA_2;
+    private javax.swing.JFormattedTextField FTF_FECHA;
     private javax.swing.JRadioButton RB_NO;
     private javax.swing.JRadioButton RB_SI;
-    private javax.swing.JTextField TXT_DESC_INCIDENTE;
-    private javax.swing.JTextField TXT_DESC_LUGAR;
-    private javax.swing.JTextField TXT_FECHA;
-    private javax.swing.JTextField TXT_HORA;
+    private javax.swing.JTextArea TXT_DESC_DENUN;
+    private javax.swing.JTextArea TXT_DESC_LUGAR;
     private javax.swing.JTextField TXT_NOMBREUSUARIO;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -317,5 +564,8 @@ public class RegistrarDenunciaVista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

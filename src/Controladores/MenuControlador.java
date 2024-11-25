@@ -5,8 +5,12 @@
  */
 package Controladores;
 
-import Modelos.DenunciaModelo;
+
 import Modelos.NoticiasModelo;
+import Repositories.DenunciaRepository;
+import Repositories.DistritoRepository;
+import Service.DenunciaService;
+import Service.DistritoService;
 import Vistas.EstadisticasVista;
 import Vistas.MenuVista;
 import Vistas.NoticiasVista;
@@ -45,26 +49,33 @@ public class MenuControlador {
         if(ae.getSource().equals(Vmenu.getBTN_REGISTRARDENUNCIA_MENU())){
             try{
              
-                //RegistrarDenunciaModelo M_Rdenuncia = new RegistrarDenunciaModelo();
+                DenunciaRepository denunciaRepository = new DenunciaRepository();
+                DenunciaService denunciaService = new DenunciaService(denunciaRepository);
+                DistritoRepository distritosRepository = new DistritoRepository();
+                DistritoService distritosService = new DistritoService(distritosRepository);
                 RegistrarDenunciaVista V_Rdenuncia = new RegistrarDenunciaVista();
-                //RegistrarDenunciaControlador C_Rdenuncia = new RegistrarDenunciaControlador(V_Rdenuncia,M_Rdenuncia);
-                //C_Rdenuncia.mostrarVista().setVisible(true);
+                RegistrarDenunciaControlador C_Rdenuncia = new RegistrarDenunciaControlador(V_Rdenuncia,denunciaService,distritosService);
+                C_Rdenuncia.mostrarVista().setVisible(true);
                 
             }catch(Exception e){
                 
             }
         }
-       /* if(ae.getSource().equals(Vmenu.getBTN_VERDENUNCIA_MENU())){
+        if(ae.getSource().equals(Vmenu.getBTN_VERDENUNCIA_MENU())){
             try{
+               DenunciaRepository denunciaRepository = new DenunciaRepository();
+               DenunciaService denunciaService = new DenunciaService(denunciaRepository);
+               DistritoRepository distritosRepository = new DistritoRepository();
+               DistritoService distritosService = new DistritoService(distritosRepository);
                VerDenunciasVista V_verDenuncia = new VerDenunciasVista();
                
-               DenunciasControlador C_verDenuncias = new DenunciasControlador(V_verDenuncia);
+               VerDenunciasControlador C_verDenuncias = new VerDenunciasControlador(V_verDenuncia,denunciaService,distritosService);
                C_verDenuncias.mostrarVista().setVisible(true);
                
             }catch(Exception e){
                 
             }
-        }*/
+        }
         if(ae.getSource().equals(Vmenu.getBTN_ESTADISTICAS_MENU())){
             try{
                EstadisticasVista V_Estadisticas = new EstadisticasVista();
@@ -77,5 +88,8 @@ public class MenuControlador {
             }
         }
         
+    }
+    public MenuVista mostrarVista(){
+        return Vmenu;
     }
 }

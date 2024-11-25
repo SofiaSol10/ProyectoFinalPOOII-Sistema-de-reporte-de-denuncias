@@ -5,9 +5,13 @@
  */
 package Utils;
 
+import Repositories.DenunciaRepository;
+import Service.DenunciaService;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Paint;
+import java.util.HashMap;
+import java.util.Map;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -53,12 +57,18 @@ public class BarChartCreator {
         }
     }
     
-    public ChartPanel BarChart_Denuncia() {      
+    public ChartPanel BarChart_Denuncia(int id) { 
+        DenunciaRepository dr = new DenunciaRepository();
+        DenunciaService ds = new DenunciaService(dr);
+        
+        Map<String, Integer> hm = ds.denunciasPorDistrito(id);
+        
+        
       JFreeChart barChart = ChartFactory.createBarChart(
          "Incidencias por Distrito",           
          "",            
          "Cantidad Denuncias",            
-         createDataset(),          
+         createDataset(hm),          
          PlotOrientation.VERTICAL,           
          true, false, false);
       
@@ -79,27 +89,28 @@ public class BarChartCreator {
       return chartPanel;
    }
    
-   private CategoryDataset createDataset( ) {
-      final String cant_denun = "Cantidad denuncias";       
-      final String robo = "Robo";        
-      final String extorsion = "Extorsión";        
-      final String asesinatos = "Asesinatos";        
-      final String viol_familiar = "Violencia%nFamiliar";
-      final String feminicidio = "Feminicidio";
-      final String acoso = "Acoso";
-      final String corrupcion = "Corrupcion";
-      final DefaultCategoryDataset dataset = 
-      new DefaultCategoryDataset( );  
+   private CategoryDataset createDataset(Map<String, Integer> hm) {
+       System.out.println("SE CRE DENUEVO EL DATASET");
+      final String cantDenun = "Cantidad denuncias";
 
-      dataset.addValue( 10 , cant_denun , robo);        
-      dataset.addValue( 30 , cant_denun , extorsion);        
-      dataset.addValue( 50 , cant_denun , asesinatos); 
-      dataset.addValue( 60, cant_denun , viol_familiar);
-      dataset.addValue( 100 , cant_denun , feminicidio); 
-      dataset.addValue( 43 , cant_denun , acoso); 
-      dataset.addValue( 75 , cant_denun , corrupcion); 
+    Map<String, String> tiposDenuncia = new HashMap<>();
+    tiposDenuncia.put("Robo-Hurto", "Robo-Hurto");
+    tiposDenuncia.put("Extorsion", "Extorsion");
+    tiposDenuncia.put("Asesinato", "Asesinato");
+    tiposDenuncia.put("Violencia Doméstica", "Violencia%nDoméstica");
+    tiposDenuncia.put("Feminicidio", "Feminicidio");
+    tiposDenuncia.put("Acoso Sexual", "Acoso%nSexual");
+    tiposDenuncia.put("Corrupcion", "Corrupcion");
 
-      return dataset; 
+    final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    // Llenar el dataset con valores del HashMap o con 0 si no están presentes
+    tiposDenuncia.forEach((tipo, label) -> {
+        int cantidad = hm.getOrDefault(tipo, 0); // Si no está el tipo, coloca 0
+        dataset.addValue(cantidad, cantDenun, label);
+    });
+
+    return dataset;
    }
     
 }

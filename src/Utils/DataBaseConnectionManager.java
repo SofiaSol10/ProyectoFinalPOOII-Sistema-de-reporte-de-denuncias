@@ -5,46 +5,25 @@
  */
 package Utils;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  *
- * @author USUARIO
+ * @author Sofía
  */
 public class DataBaseConnectionManager {
     
-    private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String user = "daynine";
-    private static final String pass = "";
-    private static final String url = "jdbc:mysql://localhost:3307/commissarbd";
-    private static Connection con = null;
-    
-    static {
+    public Connection getConnection() {
         try {
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            System.err.println("Error al cargar el driver: " + e.getMessage());
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            return DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/sistemadenuncias?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true", 
+                "root", 
+                "143143"
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Error de conexión a base de datos", e);
         }
     }
-    
-    public static Connection getConnection() throws SQLException {
-        if (con == null || con.isClosed()) {
-            con = (Connection) DriverManager.getConnection(url, user, pass);
-        }
-        return con;
-    }
-    
-    public static void closeConnection() {
-        try {
-            if (con != null && !con.isClosed()) {
-                con.close();
-                System.out.println("Conexión cerrada");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al cerrar la conexión: " + e.getMessage());
-        }
-    }
-    
 }

@@ -51,9 +51,11 @@ public class NoticiasVista extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(ListaTitulosNoticias);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Determination Sans Web", 0, 18)); // NOI18N
         jLabel2.setText("Seleccionar para ver más detalles");
 
+        VerDetalles.setBackground(new java.awt.Color(255, 153, 153));
+        VerDetalles.setFont(new java.awt.Font("Determination Sans Web", 0, 18)); // NOI18N
         VerDetalles.setText("Ver detalles");
         VerDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +116,7 @@ public class NoticiasVista extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(VerDetalles)
-                        .addGap(0, 183, Short.MAX_VALUE))
+                        .addGap(0, 181, Short.MAX_VALUE))
                     .addComponent(LB_IMAGENES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );

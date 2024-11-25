@@ -21,7 +21,7 @@ public class DenunciaService {
         this.denunciaRepository = denunciaRepository;
     }
     
-    public void crearDenuncia(Denuncia d) {
+    public void guardarDenuncia(Denuncia d) {
         denunciaRepository.save(d);
     }
 
@@ -34,7 +34,7 @@ public class DenunciaService {
     }
 
     public void eliminarDenuncia(int id) {
-        denunciaRepository.delete(id);
+        denunciaRepository.deleteById(id);
     }
     
 }

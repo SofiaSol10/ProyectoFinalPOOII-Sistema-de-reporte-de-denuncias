@@ -5,12 +5,17 @@
  */
 package Utils;
 
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,22 +23,10 @@ import java.util.UUID;
  */
 public class ImagesManager {
     
-    public static byte[] uploadImage(File sourceFile) {
-        String newPath = "uploads/images/";
-        
-        // Generar un nombre único para la imagen
-        String extension = sourceFile.getName().substring(sourceFile.getName().lastIndexOf('.') + 1);
-        String uniqueName = "image_" + UUID.randomUUID().toString() + "." + extension;
-        File destinationFile = new File(newPath + uniqueName);
-        
+   public static byte[] uploadImage(File sourceFile) {
         try {
-            // Copiar el archivo a la nueva ubicación
-            Files.copy(sourceFile.toPath(), destinationFile.toPath());
-            
-            // Convertir el archivo a byte[]
-            byte[] imageBytes = getBytesFromFile(destinationFile);
-            
-            
+            // Convertir el archivo a byte[] sin moverlo a otro directorio
+            byte[] imageBytes = getBytesFromFile(sourceFile);
             return imageBytes;
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,4 +47,25 @@ public class ImagesManager {
         return baos.toByteArray();
     }
     
+    public void getImagefromBytes(byte[] fotoBytes, JLabel label) {
+        try {
+            // Convertir el byte[] a un InputStream
+            ByteArrayInputStream bais = new ByteArrayInputStream(fotoBytes);
+            
+            // Leer la imagen usando ImageIO
+            Image imagen = ImageIO.read(bais);
+            
+            // Redimensionar la imagen (opcional, para que se ajuste al JLabel)
+            Image imagenRedimensionada = imagen.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+            
+            // Crear un ImageIcon a partir de la imagen
+            ImageIcon icon = new ImageIcon(imagenRedimensionada);
+            
+            // Asignar el icono al JLabel
+            label.setIcon(icon);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error al mostrar la imagen en el JLabel.");
+        }
+    }
 }
