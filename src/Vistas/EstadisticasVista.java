@@ -27,10 +27,9 @@ public class EstadisticasVista extends javax.swing.JFrame {
     private DistritoRepository distritoRepository = new DistritoRepository();
     private DistritoService distritoService = new DistritoService(distritoRepository);
 
-    /**
-     * Creates new form EstadisticasIncidencias
-     */
+  
     EstadisticasControlador C_Estadisticas;
+    
     public EstadisticasVista() {
         initComponents();
         C_Estadisticas = new EstadisticasControlador(this);
@@ -55,11 +54,16 @@ public class EstadisticasVista extends javax.swing.JFrame {
     }
     
     public void fillCombo(){
-        List<Distrito> ld = new ArrayList<>();
-        ld = distritoService.obtenerTodosLosDistritos();
-        System.out.println("CANTIDAD DE REGISTROS: " + ld.size());
-        ld.stream().forEach(di -> System.out.println(di.getNombreDistrito()));
-        ld.stream().forEach(d -> cboDistritos.addItem(d.getNombreDistrito()));
+        List<Distrito> distritos = distritoService.obtenerTodosLosDistritos();
+
+        // Limpia el comboBox antes de llenarlo 
+        cboDistritos.removeAllItems();
+
+        // Agregar los elementos al comboBox
+        for (Distrito distrito : distritos) {
+            cboDistritos.addItem(distrito.getNombreDistrito());
+        }
+        
     }
     
     public int getDistritoId(){
@@ -81,6 +85,9 @@ public class EstadisticasVista extends javax.swing.JFrame {
         cboDistritos = new javax.swing.JComboBox<>();
         JPGraphics = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,41 +101,72 @@ public class EstadisticasVista extends javax.swing.JFrame {
         JPGraphics.setLayout(JPGraphicsLayout);
         JPGraphicsLayout.setHorizontalGroup(
             JPGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 764, Short.MAX_VALUE)
+            .addGap(0, 782, Short.MAX_VALUE)
         );
         JPGraphicsLayout.setVerticalGroup(
             JPGraphicsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
         jLabel1.setText("DISTRITO: ");
+
+        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
+
+        jLabel2.setFont(new java.awt.Font("Determination Sans Web", 0, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("ESTADÍSTICAS");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(342, 342, 342))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jLabel3.setText("Seleccione un distrito para ver las estádisticas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(JPGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(JPGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(67, 67, 67)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(cboDistritos, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboDistritos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(JPGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -145,46 +183,45 @@ public class EstadisticasVista extends javax.swing.JFrame {
             System.out.println("ENTRO AL ACTION PERFORMED");
         }
     }//GEN-LAST:event_cboDistritosActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+        public static void main(String args[]) {
+                /* Set the Nimbus look and feel */
+                //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+                /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+                 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+                 */
+                try {
+                    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                        if ("Nimbus".equals(info.getName())) {
+                            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
+                    }
+                } catch (ClassNotFoundException ex) {
+                    java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                    java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+                //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EstadisticasVista().setVisible(true);
+                /* Create and display the form */
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new EstadisticasVista().setVisible(true);
+                    }
+                });
             }
-        });
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPGraphics;
     private javax.swing.JComboBox<String> cboDistritos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

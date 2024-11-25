@@ -62,6 +62,7 @@ public class BarChartCreator {
     
     public ChartPanel BarChart_Denuncia(int id) { 
         
+        
         Map<String, Integer> hm =denunciasPorDistrito(id);
         
         
@@ -95,13 +96,13 @@ public class BarChartCreator {
       final String cantDenun = "Cantidad denuncias";
 
     Map<String, String> tiposDenuncia = new HashMap<>();
-    tiposDenuncia.put("Robo-Hurto", "Robo-Hurto");
-    tiposDenuncia.put("Extorsion", "Extorsion");
-    tiposDenuncia.put("Asesinato", "Asesinato");
-    tiposDenuncia.put("Violencia Doméstica", "Violencia%nDoméstica");
-    tiposDenuncia.put("Feminicidio", "Feminicidio");
-    tiposDenuncia.put("Acoso Sexual", "Acoso%nSexual");
-    tiposDenuncia.put("Corrupcion", "Corrupcion");
+    tiposDenuncia.put("ROBO_HURTO", "Robo-Hurto");
+    tiposDenuncia.put("EXTORSION", "Extorsion");
+    tiposDenuncia.put("ASESINATO", "Asesinato");
+    tiposDenuncia.put("VIOLENCIA_DOMESTICA", "Violencia%nDoméstica");
+    tiposDenuncia.put("FEMINICIDIO", "Feminicidio");
+    tiposDenuncia.put("ACOSO_SEXUAL", "Acoso%nSexual");
+    tiposDenuncia.put("CORRUPCION", "Corrupcion");
 
     final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -118,12 +119,19 @@ public class BarChartCreator {
         DenunciaService ds = new DenunciaService(dr);
         
         List<Denuncia> lden = ds.obtenerTodasLasDenuncias();
+        System.out.println("Total denuncias antes del filtro: " + lden.size());
         Map<String, Integer> denunciaMap = lden.stream()
             .filter(denuncia -> denuncia.getDistrito() == id) // Filtrar por distrito
             .collect(Collectors.groupingBy(
                 Denuncia::getTipoDenu, // Agrupar por tipo de denuncia
                 Collectors.collectingAndThen(Collectors.counting(), Long::intValue) // Contar los registros
             ));
+        
+        
+        List<Denuncia> filtradas = lden.stream()
+            .filter(denuncia -> denuncia.getDistrito() == id) // Reemplazar si es necesario
+            .collect(Collectors.toList());
+        System.out.println("Total denuncias después del filtro para distrito ID " + id + ": " + filtradas.size());
         return denunciaMap;
     }
 }

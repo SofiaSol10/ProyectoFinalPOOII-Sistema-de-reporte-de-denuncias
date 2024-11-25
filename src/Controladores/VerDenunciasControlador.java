@@ -110,6 +110,8 @@ public class VerDenunciasControlador {
         }
         if(ae.getSource().equals(Vverdenuncia.getBTN_QUITARFILTRO())){
             llenarTabla(denunciaService.obtenerTodasLasDenuncias());
+            Vverdenuncia.getCB_FILTARADISTRITO().setSelectedIndex(0);
+            Vverdenuncia.getCB_FILTRARINCIDENCIA().setSelectedIndex(0);
         }
     }
     
@@ -123,7 +125,7 @@ public class VerDenunciasControlador {
             denuncia.getId(),
             denuncia.getFecha(),
             denuncia.getHora(),
-            denuncia.getDistrito(),
+            distritoService.obtenerNombreDistritoporID(denuncia.getDistrito()),
             denuncia.getTipoDenu(),
             denuncia.getNombre()
         });
