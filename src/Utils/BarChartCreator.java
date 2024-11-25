@@ -119,7 +119,7 @@ public class BarChartCreator {
         DenunciaService ds = new DenunciaService(dr);
         
         List<Denuncia> lden = ds.obtenerTodasLasDenuncias();
-        System.out.println("Total denuncias antes del filtro: " + lden.size());
+       
         Map<String, Integer> denunciaMap = lden.stream()
             .filter(denuncia -> denuncia.getDistrito() == id) // Filtrar por distrito
             .collect(Collectors.groupingBy(
@@ -127,11 +127,6 @@ public class BarChartCreator {
                 Collectors.collectingAndThen(Collectors.counting(), Long::intValue) // Contar los registros
             ));
         
-        
-        List<Denuncia> filtradas = lden.stream()
-            .filter(denuncia -> denuncia.getDistrito() == id) // Reemplazar si es necesario
-            .collect(Collectors.toList());
-        System.out.println("Total denuncias después del filtro para distrito ID " + id + ": " + filtradas.size());
         return denunciaMap;
     }
 }
