@@ -252,6 +252,7 @@ public class VerDenunciasVista extends javax.swing.JFrame {
         TA_MOSTRARDESC_LUGAR1.setColumns(20);
         TA_MOSTRARDESC_LUGAR1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         TA_MOSTRARDESC_LUGAR1.setRows(5);
+        TA_MOSTRARDESC_LUGAR1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane3.setViewportView(TA_MOSTRARDESC_LUGAR1);
 
         jLabel23.setText("Puede seleccionar una opcion o ambas opciones para filtrar");
@@ -370,15 +371,19 @@ public class VerDenunciasVista extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
+                                .addComponent(jLabel19)
+                                .addGap(68, 68, 68))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel20)))))
+                                    .addComponent(jLabel20)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                        .addGap(34, 34, 34))))))
                     .addComponent(LB_MOSTRARFOTO, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
 
         pack();

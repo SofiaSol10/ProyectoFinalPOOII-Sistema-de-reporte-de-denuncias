@@ -10,10 +10,6 @@ import Vistas.NoticiasVista;
 import java.awt.Image;
 import java.util.List;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Vector;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

@@ -193,7 +193,7 @@ public class RegistrarDenunciaControlador {
     public void llenarComboBoxTipoDenuncias(javax.swing.JComboBox<String> comboBox){
         List<String> listaTipoDenuncias = Arrays.stream(TipoDenuncias.values())
                                             .map(Enum::name) // Extrae el nombre de cada enum
-                                            .collect(Collectors.toList()); //Estamos convirtiendo los valores de Enu, TipoDenuncias a una losta para llenar wel combobox
+                                            .collect(Collectors.toList()); //Estamos convirtiendo los valores de Enum, TipoDenuncias a una lista para llenar wel combobox
         comboBox.removeAllItems();
         for (String TipoDenuncias : listaTipoDenuncias) {
             comboBox.addItem(TipoDenuncias);
