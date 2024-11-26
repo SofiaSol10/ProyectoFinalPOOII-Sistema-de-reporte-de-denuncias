@@ -73,6 +73,7 @@ public class VerDenunciasControlador {
         int id_distritoSeleccionado=distritoSeleccionado.isEmpty() 
                                   ? -1 // Usamos -1 para indicar que no se seleccionó un distrito
                                   : distritoService.obtenerIdDistrito(distritoSeleccionado);
+        
         String tipoDenunciaSeleccionada = Vverdenuncia.getCB_FILTRARINCIDENCIA().getSelectedItem().toString() ;
         
             if (id_distritoSeleccionado == -1 && !tipoDenunciaSeleccionada.isEmpty()) {

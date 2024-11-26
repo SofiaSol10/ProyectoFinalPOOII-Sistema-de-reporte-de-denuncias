@@ -140,7 +140,7 @@ public class Denuncia {
                 '}';
     }
 
-    // Builder Class
+
     public static class DenunciaBuilder {
         private int id;
         private LocalDate fecha;

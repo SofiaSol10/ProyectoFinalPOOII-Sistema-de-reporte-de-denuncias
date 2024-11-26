@@ -30,7 +30,7 @@ public class NoticiasControlador {
     public void mostrarTNoticias(){
         Nmodelo.leerNoticia();
         List<String> listatitulos=Nmodelo.getTitulos();
-        Nvista.getListaTitulosNoticias().setListData(listatitulos.toArray(new String[0]));//no me aceptaba list asi que tuve que agregarle .toArray(new String[0]) :c
+        Nvista.getListaTitulosNoticias().setListData(listatitulos.toArray(new String[0]));//no me aceptaba list asi que tuve que agregarle .toArray(new String[0])
     }
     
     public void visualizarImagenes(JLabel lbl, String ruta){
