@@ -12,6 +12,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,7 +51,11 @@ public class NoticiasControlador {
                 visualizarImagenes(Nvista.getLB_IMAGENES(),ImgSeleccionado);
 
             }catch(Exception e){
-                
+               JOptionPane.showMessageDialog(null, 
+                "Error en mostrar detalles", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+                return; 
             }
         }
         

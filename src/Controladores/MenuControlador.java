@@ -18,6 +18,7 @@ import Vistas.RegistrarDenunciaVista;
 import Vistas.VerDenunciasVista;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,7 +44,12 @@ public class MenuControlador {
                 Ncontrolador.mostrarVista().setVisible(true);
                 
             }catch(Exception e){
-                
+                e.printStackTrace();//detalles error
+                JOptionPane.showMessageDialog(null, 
+                "Error en mostrar sección Noticias", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+                return; 
             }
         }
         if(ae.getSource().equals(Vmenu.getBTN_REGISTRARDENUNCIA_MENU())){
@@ -58,7 +64,12 @@ public class MenuControlador {
                 C_Rdenuncia.mostrarVista().setVisible(true);
                 
             }catch(Exception e){
-                
+                e.printStackTrace();//detalles error
+                JOptionPane.showMessageDialog(null, 
+                "Error en mostrar sección de Registro de Denuncias", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+                return; 
             }
         }
         if(ae.getSource().equals(Vmenu.getBTN_VERDENUNCIA_MENU())){
@@ -73,7 +84,12 @@ public class MenuControlador {
                C_verDenuncias.mostrarVista().setVisible(true);
                
             }catch(Exception e){
-                
+                e.printStackTrace();//detalles error
+                JOptionPane.showMessageDialog(null, 
+                "Error en mostrar la sección Ver Denuncias", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+                return; 
             }
         }
         if(ae.getSource().equals(Vmenu.getBTN_ESTADISTICAS_MENU())){
@@ -84,7 +100,12 @@ public class MenuControlador {
              
                
             }catch(Exception e){
-                
+                e.printStackTrace();//detalles error
+                JOptionPane.showMessageDialog(null, 
+                "Error en mostrar la sección Estadísticas", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+                return; 
             }
         }
         
